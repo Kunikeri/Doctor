@@ -13,14 +13,15 @@ const nodemailer = require("nodemailer");
 
 var app = express();
 
-mongoose.connect("mongodb+srv://manikantabokam9:825Yw6IC5QDkTipG@cluster0.lzvsu.mongodb.net/")
-// mongoose.connect("mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.4.0")
-.then(result => {
-  console.log("Connected")
-})
-.catch(err => {
-  console.log(err)
-})
+const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/smartbridge?directConnection=true&serverSelectionTimeoutMS=2000";
+
+mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("MongoDB connected")
+  })
+  .catch(err => {
+    console.error("MongoDB connection error:", err);
+  });
 
 
 // const port = 5500;
